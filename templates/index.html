@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Tumor Detector</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #b1e9b5;
+            padding-top: 100px;
+        }
+        .upload-box {
+            max-width: 500px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 70px rgba(0,0,0,0.6);
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="upload-box">
+    <h2 class="text-center " style="color: #198754;">Brain Tumor Detection</h2>
+    <form method="POST" enctype="multipart/form-data" action="/upload">
+        <div class="mb-3">
+            <input class="form-control" type="file" name="file" accept="image/*" required >
+        </div>
+        <button class="btn btn-success w-100" type="submit">Upload & Predict</button>
+    </form>
+</div>
+</body>
+</html>
+

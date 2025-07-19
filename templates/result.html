@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Tumor Detection Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(182deg, #b1e9b5, #d1e3d1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 60px;
+        }
+
+        .result-box {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 100, 0, 0.2);
+            padding: 40px;
+            max-width: 700px;
+            margin: auto;
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .result-box h2 {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            border: 4px solid #a5d6a7;
+            margin-bottom: 25px;
+        }
+
+        .result-label {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .progress {
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 10px;
+            background-color: #e0f2f1;
+        }
+
+        .progress-bar {
+            font-weight: bold;
+            line-height: 30px;
+            background-color: #43a047 !important;
+        }
+
+        .btn-custom {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .btn-custom:hover {
+            background-color: #1b5e20;
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="result-box">
+    <h2>Brain Tumor Detection Result</h2>
+
+    <img src="{{ url_for('static', filename='photos/' + file_path) }}" alt="Uploaded Image" class="image-preview">
+
+    <div class="result-label" style="color: {% if label.lower() == 'no tumor' or label.lower() == 'notumor' %}#2e7d32{% else %}#c62828{% endif %};">
+        Diagnosis: {{ label }}
+    </div>
+
+    <div class="mb-2">Confidence Score</div>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar"
+             style="width: {{ confidence }}%;" aria-valuenow="{{ confidence }}"
+             aria-valuemin="0" aria-valuemax="100">
+            {{ confidence }}%
+        </div>
+    </div>
+
+    <br><br>
+    <a href="/" class="btn btn-custom">Try Another Image</a>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
