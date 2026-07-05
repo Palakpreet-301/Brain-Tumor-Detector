@@ -1,0 +1,7 @@
+Dataset/
+Dataset(zip).zip
+model(zip).zip
+__pycache__/
+*.pyc
+static/photos/*
+!static/photos/.gitkeep
