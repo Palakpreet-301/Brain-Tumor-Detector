@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Full CI/CD Pipeline
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
 
     runs-on: ubuntu-latest
 
@@ -37,3 +37,22 @@ jobs:
         run: |
           docker push \
           522294739238.dkr.ecr.us-east-1.amazonaws.com/brain-tumor-app:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 522294739238.dkr.ecr.us-east-1.amazonaws.com
+
+            docker pull 522294739238.dkr.ecr.us-east-1.amazonaws.com/brain-tumor-app:latest
+
+            docker stop brain-tumor-container || true
+            docker rm brain-tumor-container || true
+
+            docker run -d \
+              -p 8080:5000 \
+              --name brain-tumor-container \
+              522294739238.dkr.ecr.us-east-1.amazonaws.com/brain-tumor-app:latest
